@@ -11,6 +11,7 @@ require_once 'Kinds/Typo3/ClassicAboveEqual62.php';
 require_once 'Kinds/Typo3/ComposerAboveEqual62.php';
 require_once 'Kinds/Symfony/SymfonyAboveEqual2.php';
 require_once 'Kinds/Symfony/Symfony1.php';
+require_once 'Kinds/WordPress/WordPressAll.php';
 
 use Idnentity\Kinds\Laravel\LaravelAll;
 use Idnentity\Kinds\Symfony\Symfony1;
@@ -20,6 +21,7 @@ use Idnentity\Kinds\Typo3\Classic60;
 use Idnentity\Kinds\Typo3\Classic61;
 use Idnentity\Kinds\Typo3\ClassicAboveEqual62;
 use Idnentity\Kinds\Typo3\ComposerAboveEqual62;
+use Idnentity\Kinds\WordPress\WordPressAll;
 
 /**
  * Class Idnentity
@@ -43,7 +45,8 @@ class Idnentity
         ComposerAboveEqual62::class,
         LaravelAll::class,
         SymfonyAboveEqual2::class,
-        Symfony1::class
+        Symfony1::class,
+        WordPressAll::class,
     );
 
     /**

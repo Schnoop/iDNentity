@@ -38,6 +38,31 @@ class WordPressAll extends AbstractKind
      */
     protected function parseExtensions()
     {
-        return [];
+        $directories = glob($this->realPath . 'wp-content/plugins' . '/*', GLOB_ONLYDIR);
+        $extensions = [];
+        foreach ($directories as $directory) {
+            $extensions[] = $this->parseExtensionConfig($directory);
+        }
+        return $extensions;
+    }
+
+    /**
+     * Parse an WordPress plugin file and return values.
+     *
+     * @param string $directory
+     *
+     * @return array
+     */
+    protected function parseExtensionConfig($directory)
+    {
+        $explodedPath = explode('/', $directory);
+        $filename = end($explodedPath) . '.php';
+
+        $content = file_get_contents($directory . '/' . $filename);
+        return [
+            'title' => trim($this->pregMatch('/Plugin Name:(.*)/m', $content)),
+            'version' => trim($this->pregMatch('/Version:(.*)/m', $content)),
+            'author' => trim($this->pregMatch('/Author:(.*)/m', $content)),
+        ];
     }
 }
