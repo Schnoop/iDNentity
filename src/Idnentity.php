@@ -1,18 +1,5 @@
 <?php namespace Idnentity;
 
-require_once 'Kinds/AbstractKind.php';
-require_once 'Kinds/Composer/AbstractComposerKind.php';
-require_once 'Kinds/Laravel/LaravelAll.php';
-require_once 'Kinds/Typo3/AbstractTypo3Kind.php';
-require_once 'Kinds/Typo3/Below60.php';
-require_once 'Kinds/Typo3/Classic60.php';
-require_once 'Kinds/Typo3/Classic61.php';
-require_once 'Kinds/Typo3/ClassicAboveEqual62.php';
-require_once 'Kinds/Typo3/ComposerAboveEqual62.php';
-require_once 'Kinds/Symfony/SymfonyAboveEqual2.php';
-require_once 'Kinds/Symfony/Symfony1.php';
-require_once 'Kinds/WordPress/WordPressAll.php';
-
 use Idnentity\Kinds\Laravel\LaravelAll;
 use Idnentity\Kinds\Symfony\Symfony1;
 use Idnentity\Kinds\Symfony\SymfonyAboveEqual2;
@@ -69,10 +56,18 @@ class Idnentity
             if ($kind->isKindOf() === false) {
                 continue;
             }
-            return $kind->getDetails();
+            if ($this->isCommandLineInterface() === true) {
+                return print_r($kind->getDetails(), 1);
+            }
+            return json_encode($kind->getDetails());
         }
     }
 
+    /**
+     * @return bool
+     */
+    private function isCommandLineInterface()
+    {
+        return (php_sapi_name() === 'cli');
+    }
 }
-
-echo json_encode((new IDNentity())->identify());

@@ -1,3 +1,3 @@
 <?php
 
-require_once '../../../../src/Idnentity.php';
+require_once '../../../../build/idnentity.php';
